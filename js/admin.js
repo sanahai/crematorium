@@ -38,7 +38,7 @@
     adminEmpty.classList.add('hidden');
     adminTableBody.innerHTML = '';
     try {
-      const res  = await fetch(`tables/${TABLE}?limit=200`);
+      const res  = await fetch('./js/crematoriums.json');
       const json = await res.json();
       allData = json.data || [];
       renderTable(allData);
