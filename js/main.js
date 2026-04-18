@@ -20,7 +20,7 @@
   /* ── 데이터 로드 ── */
   async function loadData() {
     try {
-      const res  = await fetch(`tables/${TABLE}?limit=200`);
+      const res = await fetch('./js/crematoriums.json');
       const json = await res.json();
       allData = (json.data || []).filter(d => d.is_active !== false);
       renderCards(allData);
