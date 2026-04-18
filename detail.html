@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>화장장 상세 정보 – 전국 화장장 안내</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">
+      <i class="fa-solid fa-dove"></i>
+      <span>전국 화장장 안내</span>
+    </a>
+    <nav class="header-nav">
+      <a href="index.html" class="nav-link">화장장 목록</a>
+      <a href="admin.html" class="nav-link">관리자</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== DETAIL CONTENT ===== -->
+<main class="main-content detail-wrap">
+  <!-- 뒤로가기 -->
+  <div class="back-row">
+    <a href="index.html" class="back-btn"><i class="fa-solid fa-chevron-left"></i> 목록으로 돌아가기</a>
+  </div>
+
+  <!-- 로딩 -->
+  <div class="state-box" id="loadingBox">
+    <i class="fa-solid fa-spinner fa-spin"></i>
+    <p>상세 정보를 불러오는 중...</p>
+  </div>
+
+  <!-- 상세 본문 -->
+  <article class="detail-card hidden" id="detailCard">
+
+    <!-- 헤더 -->
+    <div class="detail-header">
+      <div class="detail-header-text">
+        <span class="detail-region-badge" id="dRegion"></span>
+        <h1 class="detail-name" id="dName"></h1>
+        <p class="detail-address"><i class="fa-solid fa-location-dot"></i> <span id="dAddress"></span></p>
+        <p class="detail-phone"><i class="fa-solid fa-phone"></i> <a id="dPhoneLink" href="#"></a></p>
+      </div>
+      <div class="detail-header-actions">
+        <a id="dMapLink" href="#" target="_blank" rel="noopener" class="action-btn map-btn">
+          <i class="fa-solid fa-map"></i> 지도 보기
+        </a>
+        <a id="dSourceLink" href="#" target="_blank" rel="noopener" class="action-btn source-btn">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> 공식 정보
+        </a>
+      </div>
+    </div>
+
+    <!-- 공지사항 -->
+    <div class="detail-notice hidden" id="dNoticeWrap">
+      <div class="notice-header"><i class="fa-solid fa-bell"></i> 공지사항</div>
+      <div class="notice-body" id="dNotice"></div>
+    </div>
+
+    <!-- 탭 -->
+    <nav class="detail-tabs" id="detailTabs">
+      <button class="tab-btn active" data-tab="docs">필요 서류</button>
+      <button class="tab-btn" data-tab="schedule">운영 시간표</button>
+      <button class="tab-btn" data-tab="reservation">예약 안내</button>
+      <button class="tab-btn" data-tab="fee">사용료</button>
+    </nav>
+
+    <!-- 탭 패널: 필요 서류 -->
+    <section class="tab-panel active" id="tab-docs">
+      <h2 class="panel-title"><i class="fa-solid fa-file-lines"></i> 필요 서류 목록</h2>
+      <div class="docs-intro">
+        <p>화장 당일, 아래 서류를 지참하셔야 합니다. 사망 유형과 시설별 운영 기준에 따라 요구 서류가 달라질 수 있으니 꼭 확인하세요.</p>
+        <p class="docs-intro-sub">관리자 페이지에서 화장장별로 <strong>[병사] [외인사] [개장유골] [외국인] [공통]</strong> 형식으로 상세 서류를 입력하면, 이 화면에서 유형별로 더 자세하게 표시됩니다.</p>
+      </div>
+      <div id="docsMeta" class="docs-meta-row"></div>
+
+      <!-- 사망 유형 선택 -->
+      <div class="death-type-selector">
+        <span class="selector-label">사망 유형 선택:</span>
+        <button class="dtype-btn active" data-type="병사">병사(일반)</button>
+        <button class="dtype-btn" data-type="외인사">외인사·사고사</button>
+        <button class="dtype-btn" data-type="개장유골">개장유골</button>
+        <button class="dtype-btn" data-type="외국인">외국인 국내사망</button>
+      </div>
+
+      <div id="docsChecklist" class="docs-checklist"></div>
+
+      <!-- 카카오톡 공유 버튼 -->
+      <div class="kakao-share-wrap">
+        <button class="kakao-share-btn" id="kakaoShareBtn">
+          <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
+               alt="카카오톡 공유" style="height:24px;vertical-align:middle;margin-right:8px;">
+          카카오톡으로 서류 목록 공유하기
+        </button>
+        <p class="kakao-desc">선택한 사망 유형의 필요 서류와 화장장 정보를 카카오톡으로 발송합니다.</p>
+      </div>
+    </section>
+
+    <!-- 탭 패널: 운영 시간표 -->
+    <section class="tab-panel hidden" id="tab-schedule">
+      <h2 class="panel-title"><i class="fa-solid fa-clock"></i> 운영 시간 및 회차 안내</h2>
+      <div class="schedule-summary">
+        <div class="schedule-badge"><i class="fa-regular fa-clock"></i> 운영시간: <strong id="dHours"></strong></div>
+      </div>
+      <div class="schedule-table-wrap" id="dScheduleTable"></div>
+    </section>
+
+    <!-- 탭 패널: 예약 안내 -->
+    <section class="tab-panel hidden" id="tab-reservation">
+      <h2 class="panel-title"><i class="fa-solid fa-calendar-check"></i> 예약 안내</h2>
+      <div id="dReservation" class="info-text"></div>
+      <div class="reserve-link-wrap">
+        <a href="https://www.15774129.go.kr" target="_blank" rel="noopener" class="action-btn reserve-btn">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> e하늘 장사정보시스템 예약하기
+        </a>
+      </div>
+    </section>
+
+    <!-- 탭 패널: 사용료 -->
+    <section class="tab-panel hidden" id="tab-fee">
+      <h2 class="panel-title"><i class="fa-solid fa-won-sign"></i> 사용료 안내</h2>
+      <div id="dFee" class="info-text"></div>
+    </section>
+
+  </article>
+</main>
+
+<!-- ===== 카카오톡 공유 모달 ===== -->
+<div class="modal-overlay hidden" id="kakaoModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2><i class="fa-brands fa-square-kakao" style="color:#FEE500;"></i> 카카오톡으로 공유</h2>
+      <button class="modal-close" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <h3>📍 화장장 정보</h3>
+        <div id="modalFacilityInfo" class="modal-info-block"></div>
+      </div>
+      <div class="modal-section">
+        <h3>📋 준비 서류 체크리스트</h3>
+        <div id="modalDocsList" class="modal-docs-block"></div>
+      </div>
+      <div class="modal-section">
+        <h3>💬 전송 옵션</h3>
+        <div class="share-option-grid">
+          <label class="share-option-card">
+            <input type="radio" name="shareAudience" value="self">
+            <span class="share-option-title">내 카톡 보관용</span>
+            <span class="share-option-desc">나와의 채팅이나 개인 보관용으로 복사/공유</span>
+          </label>
+          <label class="share-option-card">
+            <input type="radio" name="shareAudience" value="friend" checked>
+            <span class="share-option-title">지인 전달용</span>
+            <span class="share-option-desc">유족·지인에게 바로 전달할 문구로 정리</span>
+          </label>
+          <label class="share-option-card">
+            <input type="radio" name="shareScope" value="checked">
+            <span class="share-option-title">체크한 서류만</span>
+            <span class="share-option-desc">현재 체크한 항목만 골라서 전송</span>
+          </label>
+          <label class="share-option-card">
+            <input type="radio" name="shareScope" value="all" checked>
+            <span class="share-option-title">전체 서류</span>
+            <span class="share-option-desc">선택한 사망 유형의 전체 서류를 전송</span>
+          </label>
+        </div>
+      </div>
+      <div class="modal-note">
+        <p><i class="fa-solid fa-circle-info"></i> 카카오톡 공유창이 열리면 <strong>나와의 채팅</strong> 또는 원하는 지인의 대화방을 선택해 보낼 수 있습니다.</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn kakao-btn" id="modalKakaoSend">
+        <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
+             alt="카카오링크" style="height:20px;vertical-align:middle;margin-right:6px;">
+        카카오톡 공유하기
+      </button>
+      <button class="modal-btn copy-btn" id="modalCopyText">
+        <i class="fa-solid fa-copy"></i> 텍스트 복사
+      </button>
+      <button class="modal-btn copy-btn" id="modalCopyLink">
+        <i class="fa-solid fa-link"></i> 링크 복사
+      </button>
+      <button class="modal-btn close-btn" id="modalCancelBtn">취소</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 토스트 ===== -->
+<div class="toast-msg hidden" id="toastMsg"></div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <p>본 서비스는 보건복지부 e하늘 장사정보시스템을 참고하여 구성되었습니다.</p>
+  <p>실제 예약 및 최신 정보는 반드시 각 시설 공식 홈페이지 또는 <a href="https://www.15774129.go.kr" target="_blank" rel="noopener">e하늘(15774129.go.kr)</a>에서 확인하세요.</p>
+</footer>
+
+<!-- 카카오 SDK (kakao.com CDN) -->
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+        integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+        crossorigin="anonymous"></script>
+<script src="js/detail.js"></script>
+</body>
+</html>
