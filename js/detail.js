@@ -99,9 +99,9 @@
   /* ── 데이터 로드 ── */
   async function loadDetail(id) {
     try {
-      const res = await fetch(`tables/${TABLE}/${id}`);
-      if (!res.ok) throw new Error('not found');
-      const item = await res.json();
+      const res = await fetch('./js/crematoriums.json');
+      const allData = await res.json();
+      const item = allData.data.find(d => d.id === id); // id로 찾기
       currentItem = item;
       renderDetail(item);
     } catch(e) {
