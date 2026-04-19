@@ -1,90 +1,70 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>관리자 페이지</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 · 화장장 서류안내</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body class="admin-body">
-<header class="site-header">
+<header class="site-header glass-header">
   <div class="header-inner">
-    <a href="index.html" class="site-logo">
-      <i class="fa-solid fa-dove"></i>
-      <span>화장장 서류 안내</span>
-    </a>
+    <a href="index.html" class="site-logo"><i class="fa-solid fa-building-user"></i><span>화장장 서류안내</span></a>
     <nav class="header-nav">
-      <a href="index.html" class="nav-link">화장장 목록</a>
+      <a href="index.html" class="nav-link">시설 찾기</a>
       <a href="admin.html" class="nav-link active">관리자</a>
     </nav>
   </div>
 </header>
 
-<main class="admin-main">
-  <div class="admin-header-row">
+<main class="admin-main refined-admin">
+  <section class="admin-hero-box">
     <div>
-      <h1 class="admin-title"><i class="fa-solid fa-screwdriver-wrench"></i> 로컬 관리자</h1>
-      <p class="admin-subtitle">이 페이지는 정적 사이트용 관리자입니다. 수정 내용은 현재 브라우저 localStorage에 저장됩니다.</p>
+      <h1 class="admin-title"><i class="fa-solid fa-sliders"></i> 데이터 편집</h1>
+      <p class="admin-subtitle">정적 사이트에서도 바로 동작하도록 브라우저 저장 기반으로 관리합니다. 저장 후 JSON 내보내기를 눌러 배포 파일을 갱신하세요.</p>
     </div>
-    <div class="admin-toolbar">
-      <button class="subtle-btn" id="exportBtn"><i class="fa-solid fa-download"></i> JSON 내보내기</button>
-      <button class="subtle-btn danger-outline-btn" id="resetBtn"><i class="fa-solid fa-rotate-left"></i> 기본값 복원</button>
-      <button class="add-btn" id="addNewBtn"><i class="fa-solid fa-plus"></i> 새 화장장 추가</button>
+    <div class="admin-action-row top-actions">
+      <button class="add-btn" id="addNewBtn"><i class="fa-solid fa-plus"></i> 시설 추가</button>
+      <button class="secondary-cta small" id="resetDataBtn"><i class="fa-solid fa-rotate-left"></i> 기본 데이터 복원</button>
+      <button class="primary-cta small" id="exportJsonBtn"><i class="fa-solid fa-file-export"></i> JSON 내보내기</button>
     </div>
-  </div>
-
-  <div class="admin-note-box">
-    <p>배포 반영이 필요하면 이 페이지에서 수정한 뒤 <strong>JSON 내보내기</strong>를 눌러 내려받은 파일로 <code>js/crematoriums.json</code>을 교체해 다시 배포하면 됩니다.</p>
-  </div>
+  </section>
 
   <div class="admin-search-wrap">
     <i class="fa-solid fa-magnifying-glass"></i>
-    <input type="text" id="adminSearch" placeholder="화장장 이름, 지역, 시군구로 검색" class="admin-search-input" />
+    <input type="text" id="adminSearch" placeholder="이름, 지역, 시군구로 검색" class="admin-search-input">
   </div>
 
   <div class="admin-table-wrap">
     <table class="admin-table">
       <thead>
         <tr>
-          <th>화장장명</th>
-          <th>지역</th>
-          <th>시군구</th>
-          <th>전화번호</th>
-          <th>상태</th>
-          <th>관리</th>
+          <th>시설명</th><th>지역</th><th>시군구</th><th>운영시간</th><th>상태</th><th>관리</th>
         </tr>
       </thead>
       <tbody id="adminTableBody"></tbody>
     </table>
-    <div class="state-box" id="adminLoading">
-      <i class="fa-solid fa-spinner fa-spin"></i><p>불러오는 중...</p>
-    </div>
-    <div class="state-box hidden" id="adminEmpty">
-      <i class="fa-solid fa-database"></i><p>데이터가 없습니다.</p>
-    </div>
+    <div class="state-box" id="adminLoading"><i class="fa-solid fa-spinner fa-spin"></i><p>불러오는 중...</p></div>
+    <div class="state-box hidden" id="adminEmpty"><i class="fa-regular fa-folder-open"></i><p>표시할 데이터가 없습니다.</p></div>
   </div>
 </main>
 
 <div class="modal-overlay hidden" id="editModal">
-  <div class="modal-box modal-lg">
+  <div class="modal-box modal-xl">
     <div class="modal-header">
-      <h2 id="modalTitle"><i class="fa-solid fa-pen-to-square"></i> 화장장 정보 편집</h2>
+      <h2 id="modalTitle">시설 정보 편집</h2>
       <button class="modal-close" id="editModalClose"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="modal-body">
       <form id="editForm" class="edit-form">
-        <input type="hidden" id="fId" />
+        <input type="hidden" id="fId">
         <div class="form-row-2">
-          <div class="form-group">
-            <label for="fName">화장장명 <span class="required">*</span></label>
-            <input type="text" id="fName" required />
-          </div>
-          <div class="form-group">
-            <label for="fRegion">지역(시도) <span class="required">*</span></label>
+          <div class="form-group"><label for="fName">시설명</label><input type="text" id="fName" required></div>
+          <div class="form-group"><label for="fRegion">지역</label>
             <select id="fRegion" required>
-              <option value="">-- 선택 --</option>
+              <option value="">선택</option>
               <option>서울특별시</option>
               <option>경기도</option>
               <option>충청남도</option>
@@ -92,86 +72,26 @@
             </select>
           </div>
         </div>
-
         <div class="form-row-2">
-          <div class="form-group">
-            <label for="fCity">시군구</label>
-            <input type="text" id="fCity" />
-          </div>
-          <div class="form-group">
-            <label for="fPhone">전화번호</label>
-            <input type="text" id="fPhone" />
-          </div>
+          <div class="form-group"><label for="fCity">시군구</label><input type="text" id="fCity"></div>
+          <div class="form-group"><label for="fPhone">전화번호</label><input type="text" id="fPhone"></div>
         </div>
-
-        <div class="form-group">
-          <label for="fAddress">주소</label>
-          <input type="text" id="fAddress" />
-        </div>
-
+        <div class="form-group"><label for="fAddress">주소</label><input type="text" id="fAddress"></div>
         <div class="form-row-2">
-          <div class="form-group">
-            <label for="fMapLink">지도 링크</label>
-            <input type="url" id="fMapLink" />
-          </div>
-          <div class="form-group">
-            <label for="fSourceUrl">공식 출처 URL</label>
-            <input type="url" id="fSourceUrl" />
-          </div>
+          <div class="form-group"><label for="fMapLink">지도 링크</label><input type="url" id="fMapLink"></div>
+          <div class="form-group"><label for="fSourceUrl">공식 URL</label><input type="url" id="fSourceUrl"></div>
         </div>
-
-        <div class="form-row-2">
-          <div class="form-group">
-            <label for="fOperatingHours">운영시간 요약</label>
-            <input type="text" id="fOperatingHours" placeholder="예: 07:00 ~ 17:00" />
-          </div>
-          <div class="form-group">
-            <label for="fDuration">화장 소요시간</label>
-            <input type="text" id="fDuration" placeholder="예: 약 90분 ~ 120분" />
-          </div>
+        <div class="form-row-3">
+          <div class="form-group"><label for="fOperatingHours">운영시간</label><input type="text" id="fOperatingHours"></div>
+          <div class="form-group"><label for="fDuration">화장 소요시간</label><input type="text" id="fDuration"></div>
+          <div class="form-group"><label for="fReservationMethod">예약 방식</label><input type="text" id="fReservationMethod"></div>
         </div>
-
-        <div class="form-group">
-          <label for="fSummary">핵심 안내 문구</label>
-          <input type="text" id="fSummary" placeholder="예: 관내 우선 회차 운영 / 사망 유형별 원본서류 확인" />
-        </div>
-
-        <div class="form-group">
-          <label for="fSchedule">화장 시간표 <span class="form-hint">줄바꿈 구분, 예: 1회차|06:50~08:30|관내 우선</span></label>
-          <textarea id="fSchedule" rows="5"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="fRequiredDocs">필요 서류 <span class="form-hint">섹션 형식: [공통], [병사], [외인사], [개장유골], [외국인]</span></label>
-          <textarea id="fRequiredDocs" rows="12"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="fReservationInfo">예약 안내</label>
-          <textarea id="fReservationInfo" rows="5"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="fFeeInfo">사용료 안내</label>
-          <textarea id="fFeeInfo" rows="5"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="fFeeTable">요금 표 <span class="form-hint">줄바꿈 구분, 예: 일반 대인|관내 120,000원|관외 1,000,000원</span></label>
-          <textarea id="fFeeTable" rows="5"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="fNotice">확인 메모</label>
-          <textarea id="fNotice" rows="4"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label class="toggle-label">
-            <input type="checkbox" id="fIsActive" checked />
-            <span class="toggle-text">활성화 (목록에 표시)</span>
-          </label>
-        </div>
+        <div class="form-group"><label for="fSchedule">회차 안내 (줄바꿈으로 입력)</label><textarea id="fSchedule" rows="5"></textarea></div>
+        <div class="form-group"><label for="fReservationInfo">예약 안내</label><textarea id="fReservationInfo" rows="4"></textarea></div>
+        <div class="form-group"><label for="fFeeInfo">사용료 안내</label><textarea id="fFeeInfo" rows="4"></textarea></div>
+        <div class="form-group"><label for="fNotice">참고 메모</label><textarea id="fNotice" rows="3"></textarea></div>
+        <div class="form-group"><label for="fRequiredDocs">서류 원본 JSON</label><textarea id="fRequiredDocs" rows="14" placeholder='{"병사":["사망진단서 원본"],"공통":["예약확인"]}'></textarea></div>
+        <div class="form-group"><label class="toggle-label"><input type="checkbox" id="fIsActive" checked><span class="toggle-text">목록 노출</span></label></div>
       </form>
     </div>
     <div class="modal-footer">
@@ -184,25 +104,18 @@
 <div class="modal-overlay hidden" id="deleteModal">
   <div class="modal-box modal-sm">
     <div class="modal-header">
-      <h2><i class="fa-solid fa-triangle-exclamation" style="color:#e74c3c;"></i> 삭제 확인</h2>
+      <h2>삭제 확인</h2>
       <button class="modal-close" id="deleteModalClose"><i class="fa-solid fa-xmark"></i></button>
     </div>
-    <div class="modal-body">
-      <p class="delete-confirm-msg"><strong id="deleteTargetName"></strong> 정보를 삭제하시겠습니까?</p>
-    </div>
+    <div class="modal-body"><p><strong id="deleteTargetName"></strong> 항목을 삭제할까요?</p></div>
     <div class="modal-footer">
-      <button class="modal-btn danger-btn" id="deleteConfirmBtn"><i class="fa-solid fa-trash"></i> 삭제</button>
+      <button class="modal-btn danger-btn" id="deleteConfirmBtn">삭제</button>
       <button class="modal-btn close-btn" id="deleteCancelBtn">취소</button>
     </div>
   </div>
 </div>
 
 <div class="toast-msg hidden" id="toastMsg"></div>
-
-<footer class="site-footer">
-  <p>관리자 수정 내용은 이 브라우저에만 저장됩니다.</p>
-</footer>
-
-<script src="./js/admin.js"></script>
+<script src="js/admin.js"></script>
 </body>
 </html>

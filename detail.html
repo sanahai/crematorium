@@ -1,166 +1,129 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>화장장 상세 정보</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>화장장 상세안내</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-<header class="site-header">
+<header class="site-header glass-header">
   <div class="header-inner">
-    <a href="index.html" class="site-logo">
-      <i class="fa-solid fa-dove"></i>
-      <span>화장장 서류 안내</span>
-    </a>
+    <a href="index.html" class="site-logo"><i class="fa-solid fa-building-user"></i><span>화장장 서류안내</span></a>
     <nav class="header-nav">
-      <a href="index.html" class="nav-link active">화장장 목록</a>
+      <a href="index.html" class="nav-link active">시설 찾기</a>
       <a href="admin.html" class="nav-link">관리자</a>
     </nav>
   </div>
 </header>
 
-<main class="main-content detail-wrap">
-  <div class="back-row">
-    <a href="index.html" class="back-btn"><i class="fa-solid fa-chevron-left"></i> 목록으로 돌아가기</a>
+<main class="detail-page">
+  <div class="detail-shell">
+    <div class="back-row">
+      <a href="index.html" class="back-btn"><i class="fa-solid fa-chevron-left"></i> 목록으로 돌아가기</a>
+    </div>
+
+    <div class="state-box" id="loadingBox">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      <p>상세 정보를 불러오는 중입니다.</p>
+    </div>
+
+    <article class="hidden" id="detailCard">
+      <section class="detail-hero-card">
+        <div class="detail-title-col">
+          <span class="detail-region-badge" id="dRegion"></span>
+          <h1 class="detail-name" id="dName"></h1>
+          <p class="detail-address"><i class="fa-solid fa-location-dot"></i> <span id="dAddress"></span></p>
+          <p class="detail-phone"><i class="fa-solid fa-phone"></i> <a id="dPhoneLink" href="#"></a></p>
+          <div class="detail-quick-stats" id="dQuickStats"></div>
+        </div>
+        <div class="detail-action-col">
+          <a id="dMapLink" href="#" target="_blank" rel="noopener" class="action-btn map-btn"><i class="fa-solid fa-map-location-dot"></i> 지도 보기</a>
+          <a id="dSourceLink" href="#" target="_blank" rel="noopener" class="action-btn source-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i> 공식 정보</a>
+          <a href="https://15774129.go.kr/new/esky_p/esky_index.do#MENU:M210900000" target="_blank" rel="noopener" class="action-btn reserve-btn"><i class="fa-solid fa-calendar-check"></i> e하늘 확인</a>
+        </div>
+      </section>
+
+      <section class="detail-flow-strip">
+        <div class="flow-chip done">1. 시설 확인</div>
+        <div class="flow-chip active">2. 사망 유형 선택</div>
+        <div class="flow-chip emphasis">3. 카카오 전송</div>
+      </section>
+
+      <section class="detail-grid">
+        <div class="detail-main-col">
+          <section class="info-panel">
+            <div class="panel-head between">
+              <div>
+                <span class="panel-kicker">필수 기능</span>
+                <h2>사망 유형별 필요 서류</h2>
+              </div>
+              <div class="docs-meta-row" id="docsMeta"></div>
+            </div>
+            <p class="panel-desc">유형을 선택하면 필요한 서류를 바로 정리해 보여주고, 아래 버튼으로 카카오톡 또는 복사 방식으로 전달할 수 있습니다.</p>
+            <div class="death-type-selector" id="deathTypeSelector"></div>
+            <div class="docs-checklist" id="docsChecklist"></div>
+          </section>
+
+          <section class="info-panel">
+            <div class="panel-head">
+              <div>
+                <span class="panel-kicker">운영 정보</span>
+                <h2>화장 시간 안내</h2>
+              </div>
+            </div>
+            <div class="schedule-summary-grid">
+              <div class="summary-card"><span>운영시간</span><strong id="dHours"></strong></div>
+              <div class="summary-card"><span>화장 소요시간</span><strong id="dDuration"></strong></div>
+            </div>
+            <div class="schedule-table-wrap" id="dScheduleTable"></div>
+          </section>
+
+          <section class="info-panel">
+            <div class="panel-head"><div><span class="panel-kicker">예약 및 비용</span><h2>예약 안내와 사용료</h2></div></div>
+            <div class="two-info-grid">
+              <div>
+                <h3 class="section-subtitle">예약 안내</h3>
+                <div id="dReservation" class="info-text"></div>
+              </div>
+              <div>
+                <h3 class="section-subtitle">사용료 안내</h3>
+                <div id="dFee" class="info-text"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="info-panel hidden" id="dNoticeWrap">
+            <div class="panel-head"><div><span class="panel-kicker">참고</span><h2>시설별 안내 메모</h2></div></div>
+            <div id="dNotice" class="info-text"></div>
+          </section>
+        </div>
+
+        <aside class="detail-side-col">
+          <section class="share-panel sticky-share">
+            <div class="panel-head"><div><span class="panel-kicker">핵심 액션</span><h2>서류 보내기</h2></div></div>
+            <p class="panel-desc">현재 선택한 사망 유형 기준으로 시설 정보와 필요 서류를 정리해서 공유합니다.</p>
+            <div class="share-preview" id="sharePreview"></div>
+            <button class="kakao-share-btn large" id="kakaoShareBtn"><i class="fa-solid fa-comment"></i> 카카오톡으로 보내기</button>
+            <button class="outline-share-btn" id="copyTextBtn"><i class="fa-solid fa-copy"></i> 텍스트 복사</button>
+            <button class="outline-share-btn" id="copyLinkBtn"><i class="fa-solid fa-link"></i> 링크 복사</button>
+            <p class="share-note">카카오 JavaScript 키를 넣지 않은 상태에서는 복사 기능을 기본 안내로 사용합니다.</p>
+          </section>
+        </aside>
+      </section>
+    </article>
   </div>
-
-  <div class="state-box" id="loadingBox">
-    <i class="fa-solid fa-spinner fa-spin"></i>
-    <p>상세 정보를 불러오는 중입니다.</p>
-  </div>
-
-  <article class="detail-card hidden" id="detailCard">
-    <div class="detail-header">
-      <div class="detail-header-text">
-        <span class="detail-region-badge" id="dRegion"></span>
-        <h1 class="detail-name" id="dName"></h1>
-        <p class="detail-address"><i class="fa-solid fa-location-dot"></i> <span id="dAddress"></span></p>
-        <p class="detail-phone"><i class="fa-solid fa-phone"></i> <a id="dPhoneLink" href="#"></a></p>
-        <p class="detail-phone"><i class="fa-regular fa-clock"></i> <span id="dHours"></span></p>
-      </div>
-      <div class="detail-header-actions">
-        <a id="dMapLink" href="#" target="_blank" rel="noopener" class="action-btn map-btn">
-          <i class="fa-solid fa-map-location-dot"></i> 지도 보기
-        </a>
-        <a id="dSourceLink" href="#" target="_blank" rel="noopener" class="action-btn source-btn">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> 공식 정보
-        </a>
-      </div>
-    </div>
-
-    <div class="detail-notice hidden" id="dNoticeWrap">
-      <div class="notice-header"><i class="fa-solid fa-bell"></i> 확인 메모</div>
-      <div class="notice-body" id="dNotice"></div>
-    </div>
-
-    <div class="detail-summary-grid">
-      <div class="summary-mini-card">
-        <span class="summary-label">화장 소요</span>
-        <strong id="dDuration">정보 확인 필요</strong>
-      </div>
-      <div class="summary-mini-card">
-        <span class="summary-label">주요 포인트</span>
-        <strong id="dSummary">사망 유형별 서류 확인</strong>
-      </div>
-    </div>
-
-    <nav class="detail-tabs">
-      <button class="tab-btn active" data-tab="docs">필요 서류</button>
-      <button class="tab-btn" data-tab="schedule">화장 시간</button>
-      <button class="tab-btn" data-tab="reservation">예약 안내</button>
-      <button class="tab-btn" data-tab="fee">사용료</button>
-    </nav>
-
-    <section class="tab-panel active" id="tab-docs">
-      <h2 class="panel-title"><i class="fa-solid fa-file-lines"></i> 사망 유형별 필요서류</h2>
-      <div class="docs-intro">
-        <p>사망 유형을 고르면 그 유형에 맞는 서류만 정리됩니다. 공통 서류는 자동으로 함께 표시됩니다.</p>
-      </div>
-      <div class="death-type-selector">
-        <span class="selector-label">사망 유형</span>
-        <button class="dtype-btn active" data-type="병사">병사</button>
-        <button class="dtype-btn" data-type="외인사">외인사·사고사</button>
-        <button class="dtype-btn" data-type="개장유골">개장유골</button>
-        <button class="dtype-btn" data-type="외국인">외국인 국내사망</button>
-      </div>
-      <div id="docsMeta" class="docs-meta-row"></div>
-      <div id="docsChecklist" class="docs-checklist"></div>
-      <div class="kakao-share-wrap">
-        <button class="kakao-share-btn" id="kakaoShareBtn">
-          <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" alt="카카오톡 공유" style="height:24px;vertical-align:middle;margin-right:8px;">
-          카카오톡으로 서류 목록 보내기
-        </button>
-        <p class="kakao-desc">선택한 사망 유형 기준으로 공유 문구를 만들어 카카오톡 전송 또는 복사할 수 있습니다.</p>
-      </div>
-    </section>
-
-    <section class="tab-panel hidden" id="tab-schedule">
-      <h2 class="panel-title"><i class="fa-solid fa-clock"></i> 화장 시간 안내</h2>
-      <div class="schedule-summary">
-        <div class="schedule-badge"><i class="fa-regular fa-clock"></i> 운영시간: <strong id="dHoursBadge"></strong></div>
-      </div>
-      <div class="schedule-table-wrap" id="dScheduleTable"></div>
-    </section>
-
-    <section class="tab-panel hidden" id="tab-reservation">
-      <h2 class="panel-title"><i class="fa-solid fa-calendar-check"></i> 예약 안내</h2>
-      <div id="dReservation" class="info-text"></div>
-      <div class="reserve-link-wrap">
-        <a href="https://www.15774129.go.kr" target="_blank" rel="noopener" class="action-btn reserve-btn">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> e하늘 장사정보시스템 예약하기
-        </a>
-      </div>
-    </section>
-
-    <section class="tab-panel hidden" id="tab-fee">
-      <h2 class="panel-title"><i class="fa-solid fa-won-sign"></i> 사용료 안내</h2>
-      <div id="dFee" class="info-text"></div>
-      <div id="dFeeTable" class="fee-table-wrap"></div>
-    </section>
-  </article>
 </main>
-
-<div class="modal-overlay hidden" id="kakaoModal">
-  <div class="modal-box">
-    <div class="modal-header">
-      <h2><i class="fa-brands fa-square-kakao" style="color:#FEE500;"></i> 카카오톡 공유</h2>
-      <button class="modal-close" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="modal-body">
-      <div class="modal-section">
-        <h3>화장장 정보</h3>
-        <div id="modalFacilityInfo" class="modal-info-block"></div>
-      </div>
-      <div class="modal-section">
-        <h3>공유될 서류</h3>
-        <div id="modalDocsList" class="modal-docs-block"></div>
-      </div>
-      <div class="modal-note">
-        <p><i class="fa-solid fa-circle-info"></i> 카카오 JavaScript 키를 넣으면 카카오톡 공유창으로 바로 보낼 수 있고, 키가 없으면 텍스트 복사 방식으로 바로 전달할 수 있습니다.</p>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="modal-btn kakao-btn" id="modalKakaoSend">
-        <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" alt="카카오링크" style="height:20px;vertical-align:middle;margin-right:6px;">
-        카카오톡 공유
-      </button>
-      <button class="modal-btn copy-btn" id="modalCopyText"><i class="fa-solid fa-copy"></i> 텍스트 복사</button>
-      <button class="modal-btn copy-btn" id="modalCopyLink"><i class="fa-solid fa-link"></i> 링크 복사</button>
-      <button class="modal-btn close-btn" id="modalCancelBtn">닫기</button>
-    </div>
-  </div>
-</div>
 
 <div class="toast-msg hidden" id="toastMsg"></div>
 
-<footer class="site-footer">
-  <p>최종 접수 가능 서류와 금액은 방문 전 시설에 직접 확인해 주세요.</p>
+<footer class="site-footer enhanced-footer">
+  <p>최종 접수 기준은 시설과 날짜에 따라 달라질 수 있으니 방문 전 전화 확인이 필요합니다.</p>
 </footer>
 
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" crossorigin="anonymous"></script>
-<script src="./js/detail.js"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
+<script src="js/detail.js"></script>
 </body>
 </html>
