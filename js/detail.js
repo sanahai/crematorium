@@ -97,19 +97,34 @@
   }
 
   /* ── 데이터 로드 ── */
-  async function loadDetail(id) {
-    try {
-      const res = await fetch('./js/crematoriums.json');
-      const allData = await res.json();
-      const item = allData.data.find(d => d.id === id); // id로 찾기
-      currentItem = item;
-      renderDetail(item);
-    } catch(e) {
-      loadingBox.innerHTML = `
-        <i class="fa-solid fa-circle-exclamation"></i>
-        <p>화장장 정보를 불러올 수 없습니다. <a href="index.html">목록으로 돌아가기</a></p>`;
-    }
+async function loadDetail(id) {
+  try {
+    const API_KEY = 'a4bea687508507ebfe11d5215e2467d19b58c78e2a50667f9a4b19fb3e7de0c8';
+    const API_URL = `https://apis.data.go.kr/1352000/ODMS_DATA_05_1/call73756f70?serviceKey=${API_KEY}&type=json&numOfRows=100`;
+
+    const res = await fetch(API_URL);
+    const json = await res.json();
+    const rawItems = json.response?.body?.items || [];
+    
+    // ID(시설명 등)가 일치하는 데이터 찾기
+    const item = rawItems.find(d => d.facltNm === id);
+    
+    if (!item) throw new Error('데이터 없음');
+
+    // 기존 UI 구조에 맞게 매핑
+    currentItem = {
+      name: item.facltNm,
+      address: item.roadNmAddr,
+      phone: item.telno,
+      region: item.ctprvnNm,
+      // ... 기타 필드 매핑
+    };
+
+    renderDetail(currentItem);
+  } catch(e) {
+    console.error(e);
   }
+}
 
   /* ── 상세 렌더링 ── */
   function renderDetail(item) {
