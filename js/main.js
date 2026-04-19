@@ -1,13 +1,13 @@
 (function() {
   'use strict';
 
-  const cardGrid      = document.getElementById('cardGrid');
-  const loadingBox    = document.getElementById('loadingBox');
-  const emptyBox      = document.getElementById('emptyBox');
-  const searchInput   = document.getElementById('searchInput');
-  const searchClearBtn= document.getElementById('searchClearBtn');
-  const regionFilter  = document.getElementById('regionFilter');
-  const resultCount   = document.getElementById('resultCount');
+  const cardGrid = document.getElementById('cardGrid');
+  const loadingBox = document.getElementById('loadingBox');
+  const emptyBox = document.getElementById('emptyBox');
+  const searchInput = document.getElementById('searchInput');
+  const searchClearBtn = document.getElementById('searchClearBtn');
+  const regionFilter = document.getElementById('regionFilter');
+  const resultCount = document.getElementById('resultCount');
 
   let allData = [];
   let currentRegion = '전체';
@@ -17,7 +17,6 @@
     showState('loading');
     try {
       const res = await fetch('./js/crematoriums.json');
-      if (!res.ok) throw new Error('데이터 파일을 찾을 수 없습니다.');
       const json = await res.json();
       allData = (json.data || []).filter(d => d.is_active !== false);
       renderCards(allData);
@@ -30,23 +29,17 @@
   function filterAndRender() {
     const q = currentSearch.trim().toLowerCase();
     const filtered = allData.filter(item => {
-      const matchRegion = currentRegion === '전체' || item.region.includes(currentRegion);
-      const matchSearch = !q || 
-        (item.name || '').toLowerCase().includes(q) || 
-        (item.address || '').toLowerCase().includes(q);
+      const matchRegion = currentRegion === '전체' || item.region === currentRegion;
+      const matchSearch = !q || item.name.toLowerCase().includes(q) || item.address.toLowerCase().includes(q);
       return matchRegion && matchSearch;
     });
     renderCards(filtered);
   }
 
   function renderCards(list) {
-    if (!list.length) { 
-      showState('empty'); 
-      resultCount.innerText = '0개 시설'; 
-      return; 
-    }
+    if (!list.length) { showState('empty'); resultCount.innerText = '0개 시설'; return; }
     showState('list');
-    resultCount.innerHTML = `전체 <strong>${list.length}</strong>개 시설`;
+    resultCount.innerHTML = `검색 결과 <strong>${list.length}</strong>개 시설`;
     cardGrid.innerHTML = list.map(item => `
       <article class="crematorium-card">
         <div class="card-top">
@@ -65,17 +58,11 @@
     `).join('');
   }
 
-  window.goDetail = id => {
-    window.location.href = `detail.html?id=${encodeURIComponent(id)}`;
-  };
+  window.goDetail = id => window.location.href = `detail.html?id=${encodeURIComponent(id)}`;
 
   function showState(state) {
     loadingBox.classList.toggle('hidden', state !== 'loading');
     emptyBox.classList.toggle('hidden', state !== 'empty');
-    if (state === 'list') {
-      loadingBox.classList.add('hidden');
-      emptyBox.classList.add('hidden');
-    }
   }
 
   searchInput.addEventListener('input', e => { currentSearch = e.target.value; filterAndRender(); });
