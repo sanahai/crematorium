@@ -23,7 +23,7 @@
     try {
       // 1. 인증키 및 URL 설정 (스크린샷 기반)
       const API_KEY = 'a4bea687508507ebfe11d5215e2467d19b58c78e2a50667f9a4b19fb3e7de0c8'; 
-      const API_URL = `https://apis.data.go.kr/1352000/ODMS_DATA_05_1/call73756f70?serviceKey=${API_KEY}&type=json&numOfRows=100`;
+      const API_URL = `https://cors-anywhere.herokuapp.com/https://apis.data.go.kr/1352000/ODMS_DATA_05_1/call73756f70?serviceKey=${API_KEY}&type=json&numOfRows=100`;;
 
       // 2. API 호출
       const res = await fetch(API_URL);
