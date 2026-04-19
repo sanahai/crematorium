@@ -47,30 +47,47 @@
     }
   }
 
-  /* ── 상세 정보 렌더링 ── */
+/* ── 상세 정보 렌더링 ── */
   function renderDetail(item) {
     document.title = `${item.name} – 상세 정보`;
 
-    // 기본 정보 채우기
+    // 기본 정보
     document.getElementById('dRegion').textContent = item.region || '';
     document.getElementById('dName').textContent = item.name || '';
     document.getElementById('dAddress').textContent = item.address || '주소 정보 없음';
     
+    // 공지사항 (notice가 있을 때만 표시)
+    const noticeWrap = document.getElementById('dNoticeWrap');
+    const dNotice = document.getElementById('dNotice');
+    if (item.notice && noticeWrap && dNotice) {
+      noticeWrap.classList.remove('hidden');
+      dNotice.textContent = item.notice;
+    }
+
+    // 전화번호 및 지도 링크
     const phoneEl = document.getElementById('dPhoneLink');
     if (phoneEl) {
       phoneEl.textContent = item.phone || '-';
       phoneEl.href = item.phone ? `tel:${item.phone.replace(/[^0-9]/g, '')}` : '#';
     }
 
-    // 지도 링크 (카카오맵 검색 연결)
-    const mapEl = document.getElementById('dMapLink');
-    if (mapEl) {
-      mapEl.href = `https://map.kakao.com/link/search/${encodeURIComponent(item.name)}`;
-    }
+    // --- 추가된 상세 탭 데이터 매핑 ---
+    
+    // 1. 필요 서류
+    const dDocs = document.getElementById('docsChecklist');
+    if (dDocs) dDocs.innerText = item.required_docs || '등록된 서류 정보가 없습니다.';
 
-    // 운영 시간 등 기타 정보
-    const hoursEl = document.getElementById('dHours');
-    if (hoursEl) hoursEl.textContent = item.operating_hours || '07:00 ~ 17:00';
+    // 2. 운영 시간표
+    const dSchedule = document.getElementById('dScheduleTable');
+    if (dSchedule) dSchedule.innerText = item.schedule || '시간표 정보가 없습니다.';
+
+    // 3. 예약 안내
+    const dReser = document.getElementById('dReservation');
+    if (dReser) dReser.innerText = item.reservation_info || '온라인 예약 정보를 확인하세요.';
+
+    // 4. 사용료 안내
+    const dFee = document.getElementById('dFee');
+    if (dFee) dFee.innerText = item.fee_info || '가격 정보가 없습니다.';
 
     // 로딩 숨기고 카드 보이기
     loadingBox.classList.add('hidden');
