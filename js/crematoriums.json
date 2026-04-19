@@ -1,4 +1,204 @@
 {
-  "description": "전국 화장장 데이터 저장소 (현재는 실시간 API를 통해 데이터를 가져오므로 비어있음)",
-  "data": []
+  "data": [
+    {
+      "id": "1",
+      "name": "서울시립승화원",
+      "region": "서울특별시",
+      "city": "서울특별시",
+      "address": "경기도 고양시 덕양구 통일로 504 서울시립승화원 (대자동 178-1)",
+      "phone": "031-960-0236",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "2",
+      "name": "서울추모공원",
+      "region": "서울특별시",
+      "city": "서울특별시",
+      "address": "서울특별시 서초구 양재대로12길 74 (원지동)",
+      "phone": "02-3498-2581",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "3",
+      "name": "부산영락공원",
+      "region": "부산광역시",
+      "city": "금정구",
+      "address": "부산광역시 금정구 금정도서관로 108 (두구동, 영락공원)",
+      "phone": "051-790-5000",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "4",
+      "name": "대구명복공원",
+      "region": "대구광역시",
+      "city": "대구광역시",
+      "address": "대구광역시 수성구 달구벌대로 568길 20 (범어동)",
+      "phone": "053-603-3400",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "5",
+      "name": "인천가족공원 화장장",
+      "region": "인천광역시",
+      "city": "부평구",
+      "address": "인천광역시 부평구 평천로 289 (부평동)",
+      "phone": "032-510-1000",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "6",
+      "name": "광주영락공원",
+      "region": "광주광역시",
+      "city": "북구",
+      "address": "광주광역시 북구 영락공원길 170 (효령동)",
+      "phone": "062-572-4384",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "7",
+      "name": "대전정수원",
+      "region": "대전광역시",
+      "city": "대전광역시",
+      "address": "대전광역시 서구 계백로 1158번길 1(가수원동)",
+      "phone": "042-610-2300",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "8",
+      "name": "울산하늘공원",
+      "region": "울산광역시",
+      "city": "울주군",
+      "address": "울산광역시 울주군 삼동면 보삼길 550",
+      "phone": "052-255-3800",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "9",
+      "name": "세종은하수공원",
+      "region": "세종특별자치시",
+      "city": "세종특별자치시",
+      "address": "세종특별자치시 정안세종로 1527 (해밀동)",
+      "phone": "1599-4411",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "10",
+      "name": "용인평온의숲",
+      "region": "경기도",
+      "city": "용인시",
+      "address": "경기도 용인시 처인구 이동읍 평온의숲로 77",
+      "phone": "031-329-5900",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "11",
+      "name": "수원연화장",
+      "region": "경기도",
+      "city": "수원시",
+      "address": "경기도 수원시 영통구 광교호수로 278 (하동)",
+      "phone": "031-218-3500",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "12",
+      "name": "성남영생관리사업소",
+      "region": "경기도",
+      "city": "성남시",
+      "address": "경기도 성남시 중원구 순환로 547 (갈현동)",
+      "phone": "031-754-2510",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "13",
+      "name": "화성함백산추모공원",
+      "region": "경기도",
+      "city": "화성시",
+      "address": "경기도 화성시 매송면 숙곡길 101",
+      "phone": "031-240-9200",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "14",
+      "name": "청주목련공원",
+      "region": "충청북도",
+      "city": "청주시",
+      "address": "충청북도 청주시 상당구 가덕면 목련로 731",
+      "phone": "043-270-8574",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "15",
+      "name": "천안추모공원",
+      "region": "충청남도",
+      "city": "천안시",
+      "address": "충청남도 천안시 동남구 광덕면 차령로 2522-27",
+      "phone": "041-529-5114",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "16",
+      "name": "전주승화원",
+      "region": "전북특별자치도",
+      "city": "전주시",
+      "address": "전북특별자치도 전주시 완산구 콩쥐팥쥐로 1705-132 (효자동3가)",
+      "phone": "063-239-2690",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "17",
+      "name": "목포시공설화장장",
+      "region": "전라남도",
+      "city": "목포시",
+      "address": "전라남도 목포시 대양로 286 (대양동)",
+      "phone": "061-272-2193",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "18",
+      "name": "포항우현화장장",
+      "region": "경상북도",
+      "city": "포항시",
+      "address": "경상북도 포항시 북구 아치로 10 (우현동)",
+      "phone": "054-245-0451",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "19",
+      "name": "창원상복공원",
+      "region": "경상남도",
+      "city": "창원시",
+      "address": "경상남도 창원시 성산구 공단로 474 (상복동)",
+      "phone": "055-712-0900",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    },
+    {
+      "id": "20",
+      "name": "제주양지공원",
+      "region": "제주특별자치도",
+      "city": "제주시",
+      "address": "제주특별자치도 제주시 516로 2810 (영평동)",
+      "phone": "064-710-6601",
+      "operating_hours": "07:00 ~ 17:00",
+      "is_active": true
+    }
+  ]
 }
