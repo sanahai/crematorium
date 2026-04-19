@@ -1,82 +1,187 @@
 {
   "data": [
     {
-      "id": "hwaseong-01",
-      "name": "화성 함백산추모공원",
-      "region": "경기도",
-      "address": "경기도 화성시 매송면 숙곡길 101",
-      "phone": "031-240-9200",
-      "operating_hours": "07:00 ~ 17:00",
-      "is_active": true,
-      "source_url": "https://www.hambaeksan.or.kr/",
-      "required_docs": "• 사망진단서 원본 1부\n• 신청인 신분증",
-      "schedule": "• 1회차: 07:00 | 2회차: 08:30",
-      "fee_info": "• 관내: 160,000원 | 관외: 1,000,000원"
-    },
-    {
       "id": "seoul-01",
       "name": "서울시립승화원",
       "region": "서울특별시",
+      "city": "고양시 덕양구",
       "address": "경기도 고양시 덕양구 통일로 504",
       "phone": "031-960-0236",
+      "operating_hours": "06:50 ~ 19:30 회차 운영",
+      "cremation_duration": "약 100분 ~ 120분",
+      "summary": "서울·고양·파주 관내 기준과 관외 회차 구분을 반드시 확인해야 합니다.",
+      "map_link": "https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EC%8B%9C%EB%A6%BD%EC%8A%B9%ED%99%94%EC%9B%90",
+      "source_url": "https://www.sisul.or.kr/open_content/memorial/use/cremate.jsp",
+      "notice": "관내 기준은 현재 서울·고양·파주 지역에 주민등록상 주소를 두고 6개월 이상 거주 후 사망한 경우입니다. 예약 20분 전부터 운구가 시작되고, 화장시간 30분 전까지 서류 접수가 완료되어야 합니다.",
+      "schedule_slots": [
+        { "label": "1회차", "time": "06:50~08:30", "note": "관내 우선" },
+        { "label": "2회차", "time": "07:50~09:30", "note": "Smart 화장로" },
+        { "label": "8회차", "time": "11:30~13:10", "note": "Smart 화장로" },
+        { "label": "13회차", "time": "14:10~15:50", "note": "관내·관외" },
+        { "label": "18회차", "time": "17:50~19:30", "note": "마감 회차" },
+        { "label": "91~92회차", "time": "18:00~19:30", "note": "개장유골·사산아" }
+      ],
+      "required_docs": "[공통]\n사망 후 24시간 경과 확인\n화장 예약 정보 확인\n접수 서류는 원본만 가능\n신청인 신분증 지참\n\n[병사]\n사망진단서 원본\n필요 시 가족관계 확인서류\n\n[외인사]\n사망진단서 또는 시체검안서 원본\n사고사·사인미상 시 검안서 확인\n\n[개장유골]\n개장신고증\n신고인 신분증\n\n[외국인]\n사망진단서 또는 시체검안서\n대사관·영사관 발급 사망확인서\n신청인 신분증",
+      "reservation_info": "e하늘에서 예약 후 이용합니다.\n관외 지역은 관외 회차에 접수합니다.\n예약 20분 전부터 운구가 시작됩니다.\n화장시간 30분 전까지 접수실 서류 제출을 완료해야 합니다.",
+      "fee_info": "서울·고양·파주 시민과 기타 시민 요금이 다릅니다.\n국가유공자, 기초생활수급자 등 감면 대상은 추가 증빙서류가 필요합니다.",
+      "fee_table": [
+        { "label": "일반 대인", "prices": ["관내 120,000원", "관외 1,000,000원"] },
+        { "label": "일반 소인", "prices": ["관내 100,000원", "관외 400,000원"] },
+        { "label": "죽은태아", "prices": ["관내 50,000원", "관외 200,000원"] },
+        { "label": "개장유골", "prices": ["관내 60,000원", "관외 400,000원"] }
+      ],
+      "is_active": true
+    },
+    {
+      "id": "gyeonggi-01",
+      "name": "화성 함백산추모공원",
+      "region": "경기도",
+      "city": "화성시",
+      "address": "경기도 화성시 매송면 숙곡길 101",
+      "phone": "031-240-9200",
       "operating_hours": "07:00 ~ 17:00",
-      "is_active": true,
-      "source_url": "https://www.sisul.or.kr/open_content/memorial/",
-      "required_docs": "• 사망진단서 원본\n• 유족 신분증",
-      "schedule": "• 정기 회차 운영 (07:00~)",
-      "fee_info": "• 관내: 120,000원 | 관외: 1,000,000원"
+      "cremation_duration": "약 90분 ~ 120분",
+      "summary": "경기도 서남부권 수요가 집중되는 시설로, 회차 마감 여부를 먼저 확인하는 편이 좋습니다.",
+      "map_link": "https://map.kakao.com/link/search/%ED%95%A8%EB%B0%B1%EC%82%B0%EC%B6%94%EB%AA%A8%EA%B3%B5%EC%9B%90",
+      "source_url": "https://www.hambaeksan.or.kr/",
+      "notice": "세부 서류와 금액은 예약 전 전화 또는 e하늘로 재확인이 필요합니다.",
+      "schedule_slots": [
+        { "label": "1회차", "time": "07:00", "note": "접수 마감 사전 확인" },
+        { "label": "2회차", "time": "08:30", "note": "일반 회차" },
+        { "label": "3회차", "time": "10:00", "note": "일반 회차" },
+        { "label": "4회차", "time": "13:00", "note": "오후 회차" },
+        { "label": "5회차", "time": "15:00", "note": "오후 회차" }
+      ],
+      "required_docs": "[공통]\n신청인 신분증\n화장 예약정보 확인\n시설 요구 시 가족관계 확인서류\n\n[병사]\n사망진단서 원본\n\n[외인사]\n사망진단서 또는 시체검안서\n필요 시 검사지휘서\n\n[개장유골]\n개장신고필증\n신고인 신분증\n\n[외국인]\n사망진단서\n외국인 등록 또는 거소 관련 확인서류\n대사관 확인서류 필요 여부 사전 문의",
+      "reservation_info": "e하늘 예약 후 이용하는 방식으로 안내합니다.\n현장 접수 시간과 회차별 마감 상황은 시설에 직접 문의해 주세요.",
+      "fee_info": "관내와 관외 기준이 다를 수 있습니다.\n홈페이지 공지 또는 전화 문의로 최종 금액을 확인해 주세요.",
+      "fee_table": [
+        { "label": "일반 대인", "prices": ["관내 160,000원", "관외 1,000,000원"] },
+        { "label": "참고", "prices": ["감면 대상 별도 확인"] }
+      ],
+      "is_active": true
     },
     {
-      "id": "incheon-01",
-      "name": "인천가족공원 승화원",
-      "region": "인천광역시",
-      "address": "인천광역시 부평구 평천로 289",
-      "phone": "032-510-1000",
-      "operating_hours": "07:00 ~ 18:00",
-      "is_active": true,
-      "source_url": "https://www.insisul.or.kr/design/funeral/",
-      "required_docs": "• 사망진단서\n• 인천 거주 확인 서류",
-      "schedule": "• 1~5회차 정기 운영",
-      "fee_info": "• 관내: 160,000원 | 관외: 1,000,000원"
+      "id": "gyeonggi-02",
+      "name": "성남시장례문화사업소",
+      "region": "경기도",
+      "city": "성남시 중원구",
+      "address": "경기도 성남시 중원구 순암로 787",
+      "phone": "031-754-2268",
+      "operating_hours": "회차 운영, 예약 전 확인 권장",
+      "cremation_duration": "약 90분 ~ 120분",
+      "summary": "성남시 공식 페이지에서 화장시설 규모와 위치를 안내하고 있습니다. 세부 접수 기준은 예약 전 확인이 필요합니다.",
+      "map_link": "https://map.kakao.com/link/search/%EC%84%B1%EB%82%A8%EC%8B%9C%EC%9E%A5%EB%A1%80%EB%AC%B8%ED%99%94%EC%82%AC%EC%97%85%EC%86%8C",
+      "source_url": "https://www.seongnam.go.kr/city/1001268/10853/contents.do",
+      "notice": "성남시 공식 페이지는 시설 현황 중심 안내이므로 실제 서류와 요금은 접수 전 확인해 주세요.",
+      "schedule_slots": [
+        { "label": "운영 방식", "time": "회차제", "note": "예약 현황에 따라 변동" }
+      ],
+      "required_docs": "[공통]\n신청인 신분증\ne하늘 예약번호\n\n[병사]\n사망진단서 원본\n\n[외인사]\n사망진단서 또는 시체검안서\n필요 시 수사기관 서류\n\n[개장유골]\n개장신고필증\n\n[외국인]\n사망진단서\n외국인 신분 관련 서류\n대사관 확인서류 필요 여부 문의",
+      "reservation_info": "e하늘 예약 후 접수하는 흐름으로 사용하세요.\n회차별 여유와 관내 기준은 시설 문의가 가장 정확합니다.",
+      "fee_info": "정확한 관내·관외 금액은 시설 문의 후 반영하는 것을 권장합니다.",
+      "fee_table": [
+        { "label": "안내", "prices": ["시설 문의 후 최종 확인"] }
+      ],
+      "is_active": true
     },
     {
-      "id": "sejong-01",
-      "name": "세종 은하수공원",
-      "region": "세종특별자치시",
-      "address": "세종특별자치시 정안세종로 1527",
-      "phone": "1599-4411",
-      "operating_hours": "08:00 ~ 17:00",
-      "is_active": true,
-      "source_url": "https://www.sjeunhasu.or.kr/",
-      "required_docs": "• 사망진단서\n• 세종 거주 확인 서류",
-      "schedule": "• 08:00 / 10:00 / 13:00 / 15:00",
-      "fee_info": "• 관내: 160,000원 | 관외: 500,000원"
+      "id": "gyeonggi-03",
+      "name": "용인 평온의 숲(나래원)",
+      "region": "경기도",
+      "city": "용인시 처인구",
+      "address": "경기도 용인시 처인구 이동읍 평온의숲로 77",
+      "phone": "031-329-5900",
+      "operating_hours": "회차 운영, 시설 문의 권장",
+      "cremation_duration": "약 90분 ~ 120분",
+      "summary": "보건복지부 화장시설 현황에 등재된 경기도 시설입니다. 전화와 홈페이지 기준으로 상세 확인을 권장합니다.",
+      "map_link": "https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%20%ED%8F%89%EC%98%A8%EC%9D%98%20%EC%88%B2",
+      "source_url": "http://www.tranquil-forest.or.kr/",
+      "notice": "세부 서류와 요금표는 사이트 공지 또는 전화 확인이 가장 정확합니다.",
+      "schedule_slots": [
+        { "label": "운영 방식", "time": "회차제", "note": "시설 문의" }
+      ],
+      "required_docs": "[공통]\n신청인 신분증\ne하늘 예약내역\n\n[병사]\n사망진단서\n\n[외인사]\n사체검안서 또는 사망진단서\n필요 시 검사지휘서\n\n[개장유골]\n개장신고필증\n\n[외국인]\n사망진단서\n외국인 등록 관련 증빙\n대사관 확인서류 여부 문의",
+      "reservation_info": "e하늘 예약 후 이용을 기본으로 두고, 관내 적용 여부와 현장 제출서류는 시설에 확인해 주세요.",
+      "fee_info": "최신 요금표 공지 확인이 필요합니다.",
+      "fee_table": [
+        { "label": "안내", "prices": ["시설 문의 후 확인"] }
+      ],
+      "is_active": true
     },
     {
       "id": "chungnam-01",
       "name": "천안추모공원",
       "region": "충청남도",
+      "city": "천안시 동남구",
       "address": "충남 천안시 동남구 광덕면 차령로 2522-27",
-      "phone": "041-529-5114",
-      "operating_hours": "08:00 ~ 17:00",
-      "is_active": true,
-      "source_url": "https://www.cheonan.go.kr/csmemorial.do",
-      "required_docs": "• 사망진단서\n• 천안 거주 증빙",
-      "schedule": "• 회차별 정기 운영",
-      "fee_info": "• 관내: 100,000원 | 관외: 500,000원"
+      "phone": "041-529-5140",
+      "operating_hours": "07:00 ~ 16:00",
+      "cremation_duration": "약 90분 ~ 120분",
+      "summary": "접수서류와 사망 유형별 필요서류가 비교적 명확하게 안내되는 시설입니다.",
+      "map_link": "https://map.kakao.com/link/search/%EC%B2%9C%EC%95%88%EC%B6%94%EB%AA%A8%EA%B3%B5%EC%9B%90",
+      "source_url": "https://www.cauc.or.kr/_chpark/main.asp?no=7",
+      "notice": "화장 5일 전부터 1일 전까지 예약을 권장하고, 예약시간 30분 전까지 영구차 도착 후 서류 접수를 안내합니다.",
+      "schedule_slots": [
+        { "label": "운영시간", "time": "07:00~16:00", "note": "인터넷 예약 중심" },
+        { "label": "1~2회차", "time": "관내 우선", "note": "주민등록상 관내 사망자 우선" }
+      ],
+      "required_docs": "[공통]\n구비서류는 원본이어야 함\n인터넷 예약 후 당일 원본 제출\n신청인 신분증\n\n[병사]\n사망진단서 1부\n\n[외인사]\n사체검안서 1부\n검사지휘서 1부\n\n[개장유골]\n개장신고필증 1부\n신고인 직접 방문 및 신분증 지참\n\n[외국인]\n사망진단서\n거소사실 확인증명서 또는 외국인등록사실증명서\n고인 신분증\n유족 신분증\n거소 확인이 없으면 대사관 화장확인서",
+      "reservation_info": "인터넷 예약만 가능합니다.\n사망 24시간 경과 후 이용 가능하며, 예외는 임신 7개월 미만 사태입니다.\n화장당일에는 예약시간 30분 전까지 도착해 서류 접수를 진행합니다.",
+      "fee_info": "관내 우선 회차가 있고 감면 대상은 별도 증빙이 필요합니다.\n일반 금액은 시설 공지 또는 안내실에서 다시 확인해 주세요.",
+      "fee_table": [
+        { "label": "일반 대인", "prices": ["관내 100,000원", "관외 500,000원"] },
+        { "label": "감면 대상", "prices": ["수급자·국가유공자 별도 확인"] }
+      ],
+      "is_active": true
     },
     {
       "id": "chungbuk-01",
       "name": "청주 목련공원",
       "region": "충청북도",
-      "address": "충북 청주시 상당구 가덕면 목련로 731",
+      "city": "청주시 상당구",
+      "address": "충청북도 청주시 상당구 목련로 731",
       "phone": "043-270-8574",
-      "operating_hours": "08:00 ~ 17:00",
-      "is_active": true,
+      "operating_hours": "회차 운영, 동절기 확대 운영 가능",
+      "cremation_duration": "약 90분 ~ 120분",
+      "summary": "충청북도 공설 화장시설 안내 기준으로 관내·관외 요금 차이가 큰 편입니다.",
+      "map_link": "https://map.kakao.com/link/search/%EC%B2%AD%EC%A3%BC%20%EB%AA%A9%EB%A0%A8%EA%B3%B5%EC%9B%90",
       "source_url": "https://www.cheongju.go.kr/mokryeon/index.do",
-      "required_docs": "• 사망진단서 원본\n• 청주 거주 증빙",
-      "schedule": "• 오전/오후 정기 회차",
-      "fee_info": "• 관내: 100,000원 | 관외: 500,000원"
+      "notice": "충청북도 자료 기준 일반 대인 화장비용은 관내 100천원, 관외 500천원입니다.",
+      "schedule_slots": [
+        { "label": "운영 방식", "time": "회차제", "note": "계절별 확대 운영 가능" }
+      ],
+      "required_docs": "[공통]\n신청인 신분증\n예약 정보 확인\n\n[병사]\n사망진단서 원본\n\n[외인사]\n사망진단서 또는 시체검안서\n필요 시 검사지휘서\n\n[개장유골]\n개장신고필증\n\n[외국인]\n사망진단서\n거소 또는 외국인 등록 관련 서류\n대사관 확인서류 필요 여부 시설 문의",
+      "reservation_info": "e하늘 예약 후 접수하는 방식을 기본으로 사용하세요.\n동절기 확대 운영 여부는 공지사항 확인이 필요합니다.",
+      "fee_info": "충청북도 장사시설 현황 기준 일반 대인 화장비용은 관내 100천원, 관외 500천원입니다.",
+      "fee_table": [
+        { "label": "일반 대인", "prices": ["관내 100,000원", "관외 500,000원"] }
+      ],
+      "is_active": true
+    },
+    {
+      "id": "chungbuk-02",
+      "name": "충주 하늘나라",
+      "region": "충청북도",
+      "city": "충주시",
+      "address": "충청북도 충주시 목벌길 256",
+      "phone": "043-870-7867",
+      "operating_hours": "회차 운영, 시설 문의 권장",
+      "cremation_duration": "약 90분 ~ 120분",
+      "summary": "충청북도 공설 화장시설 자료와 전국추모공원정보표준데이터에 등재된 시설입니다.",
+      "map_link": "https://map.kakao.com/link/search/%EC%B6%A9%EC%A3%BC%20%ED%95%98%EB%8A%98%EB%82%98%EB%9D%BC",
+      "source_url": "https://www.cjfmc.or.kr/www/index.do",
+      "notice": "충청북도 자료 기준 일반 대인 화장비용은 관내 100천원, 관외 1,000천원입니다.",
+      "schedule_slots": [
+        { "label": "운영 방식", "time": "회차제", "note": "시설 문의" }
+      ],
+      "required_docs": "[공통]\n신청인 신분증\ne하늘 예약 정보\n\n[병사]\n사망진단서\n\n[외인사]\n사체검안서 또는 사망진단서\n검사지휘서 필요 여부 확인\n\n[개장유골]\n개장신고필증\n\n[외국인]\n사망진단서\n외국인 신분 관련 서류\n대사관 서류 필요 여부 문의",
+      "reservation_info": "사전 예약 후 이용을 권장합니다.\n관내·관외 적용 여부와 마감 회차는 시설에 직접 문의해 주세요.",
+      "fee_info": "충청북도 장사시설 현황 기준 일반 대인 화장비용은 관내 100천원, 관외 1,000천원입니다.",
+      "fee_table": [
+        { "label": "일반 대인", "prices": ["관내 100,000원", "관외 1,000,000원"] }
+      ],
+      "is_active": true
     }
   ]
 }
