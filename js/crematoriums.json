@@ -2,7 +2,7 @@
 async function loadData() {
   showState('loading');
   try {
-    const API_KEY = '본인의_인증키_여기에_입력'; // 발급받은 Decoding 인증키 입력
+    const API_KEY = 'a4bea687508507ebfe11d5215e2467d19b58c78e2a50667f9a4b19fb3e7de0c8'; // 발급받은 Decoding 인증키 입력
     const API_URL = `https://apis.data.go.kr/1352000/ODMS_DATA_05_1/call73756f70?serviceKey=${API_KEY}&type=json&numOfRows=100`;
 
     const res = await fetch(API_URL);
