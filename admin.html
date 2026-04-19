@@ -3,19 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>관리자 페이지 – 전국 화장장 안내</title>
+  <title>관리자 페이지</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
 </head>
 <body class="admin-body">
-
-<!-- ===== HEADER ===== -->
 <header class="site-header">
   <div class="header-inner">
     <a href="index.html" class="site-logo">
       <i class="fa-solid fa-dove"></i>
-      <span>전국 화장장 안내</span>
+      <span>화장장 서류 안내</span>
     </a>
     <nav class="header-nav">
       <a href="index.html" class="nav-link">화장장 목록</a>
@@ -24,27 +22,30 @@
   </div>
 </header>
 
-<!-- ===== ADMIN MAIN ===== -->
 <main class="admin-main">
   <div class="admin-header-row">
     <div>
-      <h1 class="admin-title"><i class="fa-solid fa-screwdriver-wrench"></i> 화장장 정보 관리</h1>
-      <p class="admin-subtitle">화장장 정보를 추가·수정·삭제하세요. 변경 내용은 즉시 반영됩니다.</p>
+      <h1 class="admin-title"><i class="fa-solid fa-screwdriver-wrench"></i> 로컬 관리자</h1>
+      <p class="admin-subtitle">이 페이지는 정적 사이트용 관리자입니다. 수정 내용은 현재 브라우저 localStorage에 저장됩니다.</p>
     </div>
-    <button class="add-btn" id="addNewBtn">
-      <i class="fa-solid fa-plus"></i> 새 화장장 추가
-    </button>
+    <div class="admin-toolbar">
+      <button class="subtle-btn" id="exportBtn"><i class="fa-solid fa-download"></i> JSON 내보내기</button>
+      <button class="subtle-btn danger-outline-btn" id="resetBtn"><i class="fa-solid fa-rotate-left"></i> 기본값 복원</button>
+      <button class="add-btn" id="addNewBtn"><i class="fa-solid fa-plus"></i> 새 화장장 추가</button>
+    </div>
   </div>
 
-  <!-- 검색 -->
+  <div class="admin-note-box">
+    <p>배포 반영이 필요하면 이 페이지에서 수정한 뒤 <strong>JSON 내보내기</strong>를 눌러 내려받은 파일로 <code>js/crematoriums.json</code>을 교체해 다시 배포하면 됩니다.</p>
+  </div>
+
   <div class="admin-search-wrap">
     <i class="fa-solid fa-magnifying-glass"></i>
-    <input type="text" id="adminSearch" placeholder="화장장 이름, 지역으로 검색..." class="admin-search-input" />
+    <input type="text" id="adminSearch" placeholder="화장장 이름, 지역, 시군구로 검색" class="admin-search-input" />
   </div>
 
-  <!-- 테이블 -->
   <div class="admin-table-wrap">
-    <table class="admin-table" id="adminTable">
+    <table class="admin-table">
       <thead>
         <tr>
           <th>화장장명</th>
@@ -55,9 +56,7 @@
           <th>관리</th>
         </tr>
       </thead>
-      <tbody id="adminTableBody">
-        <!-- JS 렌더링 -->
-      </tbody>
+      <tbody id="adminTableBody"></tbody>
     </table>
     <div class="state-box" id="adminLoading">
       <i class="fa-solid fa-spinner fa-spin"></i><p>불러오는 중...</p>
@@ -68,7 +67,6 @@
   </div>
 </main>
 
-<!-- ===== 편집 모달 ===== -->
 <div class="modal-overlay hidden" id="editModal">
   <div class="modal-box modal-lg">
     <div class="modal-header">
@@ -78,22 +76,19 @@
     <div class="modal-body">
       <form id="editForm" class="edit-form">
         <input type="hidden" id="fId" />
-
         <div class="form-row-2">
           <div class="form-group">
             <label for="fName">화장장명 <span class="required">*</span></label>
-            <input type="text" id="fName" required placeholder="예: 서울시립승화원" />
+            <input type="text" id="fName" required />
           </div>
           <div class="form-group">
             <label for="fRegion">지역(시도) <span class="required">*</span></label>
             <select id="fRegion" required>
               <option value="">-- 선택 --</option>
-              <option>서울특별시</option><option>경기도</option><option>인천광역시</option>
-              <option>부산광역시</option><option>대구광역시</option><option>광주광역시</option>
-              <option>대전광역시</option><option>울산광역시</option><option>세종특별자치시</option>
-              <option>강원특별자치도</option><option>충청북도</option><option>충청남도</option>
-              <option>전라북도</option><option>전라남도</option><option>경상북도</option>
-              <option>경상남도</option><option>제주특별자치도</option>
+              <option>서울특별시</option>
+              <option>경기도</option>
+              <option>충청남도</option>
+              <option>충청북도</option>
             </select>
           </div>
         </div>
@@ -101,62 +96,74 @@
         <div class="form-row-2">
           <div class="form-group">
             <label for="fCity">시군구</label>
-            <input type="text" id="fCity" placeholder="예: 고양시" />
+            <input type="text" id="fCity" />
           </div>
           <div class="form-group">
             <label for="fPhone">전화번호</label>
-            <input type="text" id="fPhone" placeholder="031-960-0235~7" />
+            <input type="text" id="fPhone" />
           </div>
         </div>
 
         <div class="form-group">
           <label for="fAddress">주소</label>
-          <input type="text" id="fAddress" placeholder="도로명 주소 전체" />
+          <input type="text" id="fAddress" />
         </div>
 
         <div class="form-row-2">
           <div class="form-group">
-            <label for="fMapLink">지도 링크 (카카오맵 등)</label>
-            <input type="url" id="fMapLink" placeholder="https://map.kakao.com/..." />
+            <label for="fMapLink">지도 링크</label>
+            <input type="url" id="fMapLink" />
           </div>
           <div class="form-group">
             <label for="fSourceUrl">공식 출처 URL</label>
-            <input type="url" id="fSourceUrl" placeholder="https://..." />
+            <input type="url" id="fSourceUrl" />
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="fOperatingHours">운영시간 요약</label>
+            <input type="text" id="fOperatingHours" placeholder="예: 07:00 ~ 17:00" />
+          </div>
+          <div class="form-group">
+            <label for="fDuration">화장 소요시간</label>
+            <input type="text" id="fDuration" placeholder="예: 약 90분 ~ 120분" />
           </div>
         </div>
 
         <div class="form-group">
-          <label for="fOperatingHours">운영시간 요약</label>
-          <input type="text" id="fOperatingHours" placeholder="예: 07:00 ~ 17:00 (연중무휴)" />
+          <label for="fSummary">핵심 안내 문구</label>
+          <input type="text" id="fSummary" placeholder="예: 관내 우선 회차 운영 / 사망 유형별 원본서류 확인" />
         </div>
 
         <div class="form-group">
-          <label for="fSchedule">회차별 화장 시간표
-            <span class="form-hint">| 로 구분: 예) 1회차 07:00 | 2회차 08:00 | ...</span>
-          </label>
-          <textarea id="fSchedule" rows="3" placeholder="1회차 07:00 | 2회차 08:00 | 3회차 09:00 ..."></textarea>
+          <label for="fSchedule">화장 시간표 <span class="form-hint">줄바꿈 구분, 예: 1회차|06:50~08:30|관내 우선</span></label>
+          <textarea id="fSchedule" rows="5"></textarea>
         </div>
 
         <div class="form-group">
-          <label for="fRequiredDocs">필요 서류 목록
-            <span class="form-hint">권장 포맷: [병사] [외인사] [개장유골] [외국인] [공통] 섹션 + 필수/추가/유의/절차/문의 라벨</span>
-          </label>
-          <textarea id="fRequiredDocs" rows="9" placeholder="[병사]&#10;필수: 사망진단서 또는 시체검안서 원본 1부&#10;필수: 신청인 신분증&#10;추가: 가족관계증명서(시설 요청 시)&#10;유의: 원본 여부는 방문 전 전화 확인&#10;&#10;[외인사]&#10;필수: 사망진단서 또는 시체검안서&#10;필수: 검사지휘서&#10;&#10;[공통]&#10;공통: e하늘 예약번호&#10;절차: 접수 창구 제출 후 사용료 납부"></textarea>
+          <label for="fRequiredDocs">필요 서류 <span class="form-hint">섹션 형식: [공통], [병사], [외인사], [개장유골], [외국인]</span></label>
+          <textarea id="fRequiredDocs" rows="12"></textarea>
         </div>
 
         <div class="form-group">
           <label for="fReservationInfo">예약 안내</label>
-          <textarea id="fReservationInfo" rows="4" placeholder="예약 방법, 가능 일정 등..."></textarea>
+          <textarea id="fReservationInfo" rows="5"></textarea>
         </div>
 
         <div class="form-group">
           <label for="fFeeInfo">사용료 안내</label>
-          <textarea id="fFeeInfo" rows="4" placeholder="관내/관외 구분, 감면 기준 등..."></textarea>
+          <textarea id="fFeeInfo" rows="5"></textarea>
         </div>
 
         <div class="form-group">
-          <label for="fNotice">공지사항</label>
-          <textarea id="fNotice" rows="3" placeholder="특이사항, 변경 안내 등..."></textarea>
+          <label for="fFeeTable">요금 표 <span class="form-hint">줄바꿈 구분, 예: 일반 대인|관내 120,000원|관외 1,000,000원</span></label>
+          <textarea id="fFeeTable" rows="5"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="fNotice">확인 메모</label>
+          <textarea id="fNotice" rows="4"></textarea>
         </div>
 
         <div class="form-group">
@@ -174,7 +181,6 @@
   </div>
 </div>
 
-<!-- ===== 삭제 확인 모달 ===== -->
 <div class="modal-overlay hidden" id="deleteModal">
   <div class="modal-box modal-sm">
     <div class="modal-header">
@@ -182,7 +188,7 @@
       <button class="modal-close" id="deleteModalClose"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="modal-body">
-      <p class="delete-confirm-msg"><strong id="deleteTargetName"></strong> 화장장 정보를 삭제하시겠습니까?<br>삭제된 데이터는 복구되지 않습니다.</p>
+      <p class="delete-confirm-msg"><strong id="deleteTargetName"></strong> 정보를 삭제하시겠습니까?</p>
     </div>
     <div class="modal-footer">
       <button class="modal-btn danger-btn" id="deleteConfirmBtn"><i class="fa-solid fa-trash"></i> 삭제</button>
@@ -191,12 +197,10 @@
   </div>
 </div>
 
-<!-- ===== 토스트 ===== -->
 <div class="toast-msg hidden" id="toastMsg"></div>
 
-<!-- ===== FOOTER ===== -->
 <footer class="site-footer">
-  <p>관리자 전용 페이지입니다. 데이터 변경 시 주의하세요.</p>
+  <p>관리자 수정 내용은 이 브라우저에만 저장됩니다.</p>
 </footer>
 
 <script src="./js/admin.js"></script>

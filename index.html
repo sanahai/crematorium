@@ -3,62 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>전국 화장장 안내 서비스</title>
+  <title>수도권·충청권 화장장 안내</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    .search-section { background: #f8f9fa; padding: 40px 20px; text-align: center; border-bottom: 1px solid #eee; }
-    .search-container { max-width: 600px; margin: 0 auto; position: relative; }
-    #searchInput { width: 100%; padding: 15px 50px 15px 20px; border: 2px solid #007bff; border-radius: 30px; font-size: 16px; outline: none; }
-    #searchClearBtn { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #999; }
-    .filter-section { padding: 20px; text-align: center; }
-    .region-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 15px; }
-    .region-btn { padding: 8px 18px; border: 1px solid #ddd; border-radius: 20px; background: white; cursor: pointer; transition: 0.2s; }
-    .region-btn.active { background: #007bff; color: white; border-color: #007bff; }
-    .result-info { max-width: 1100px; margin: 0 auto 10px; padding: 0 20px; text-align: left; font-size: 14px; color: #666; }
-    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; padding: 20px; }
-    .crematorium-card { background: white; border: 1px solid #eee; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.2s; }
-    .crematorium-card:hover { transform: translateY(-5px); }
-    .card-top { padding: 20px; border-bottom: 1px solid #f5f5f5; }
-    .card-region-badge { display: inline-block; padding: 3px 10px; background: #e7f3ff; color: #007bff; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 8px; }
-    .card-name { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #333; }
-    .card-address { font-size: 14px; color: #777; line-height: 1.4; }
-    .card-body { padding: 20px; }
-    .card-info-row { display: flex; align-items: center; margin-bottom: 8px; font-size: 14px; color: #555; }
-    .card-info-row i { width: 20px; color: #007bff; margin-right: 10px; }
-    .card-footer { padding: 15px 20px; background: #fcfcfc; text-align: center; }
-    .card-detail-btn { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; }
-    .hidden { display: none !important; }
-    #loadingBox { text-align: center; padding: 50px; font-size: 18px; color: #999; }
-    #emptyBox { text-align: center; padding: 50px; }
-  </style>
 </head>
 <body>
-  <header class="main-header">
-    <div class="container"><h1><i class="fa-solid fa-monument"></i> 전국 화장장 안내</h1></div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <i class="fa-solid fa-dove"></i>
+        <span>화장장 서류 안내</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link active">화장장 목록</a>
+        <a href="admin.html" class="nav-link">관리자</a>
+      </nav>
+    </div>
   </header>
-  <section class="search-section">
-    <div class="search-container">
-      <input type="text" id="searchInput" placeholder="화장장 이름 또는 주소를 입력하세요">
-      <i class="fa-solid fa-circle-xmark" id="searchClearBtn"></i>
+
+  <section class="hero-section compact">
+    <div class="hero-inner">
+      <h1 class="hero-title">서울·경기·충남·충북 화장장 안내</h1>
+      <p class="hero-desc">화장 시간, 사용료, 사망 유형별 필요서류를 한 번에 확인하고 카카오톡으로 바로 전달할 수 있도록 구성했습니다.</p>
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="화장장 이름, 지역, 주소로 검색">
+        <button id="searchClearBtn" class="search-clear-btn" aria-label="검색어 지우기">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      </div>
+      <div class="region-filter" id="regionFilter">
+        <button class="region-btn active" data-region="전체">전체</button>
+        <button class="region-btn" data-region="서울특별시">서울</button>
+        <button class="region-btn" data-region="경기도">경기</button>
+        <button class="region-btn" data-region="충청남도">충남</button>
+        <button class="region-btn" data-region="충청북도">충북</button>
+      </div>
     </div>
   </section>
-  <section class="filter-section">
-    <div class="region-filter" id="regionFilter">
-      <button class="region-btn active" data-region="전체">전체</button>
-      <button class="region-btn" data-region="서울특별시">서울</button>
-      <button class="region-btn" data-region="경기도">경기</button>
-      <button class="region-btn" data-region="인천광역시">인천</button>
-      <button class="region-btn" data-region="세종특별자치시">세종</button>
-      <button class="region-btn" data-region="충청남도">충남</button>
-      <button class="region-btn" data-region="충청북도">충북</button>
+
+  <main class="main-content">
+    <div class="content-header">
+      <div class="result-count" id="resultCount">데이터를 불러오는 중입니다.</div>
+      <a href="https://www.15774129.go.kr" target="_blank" rel="noopener" class="ehaneul-link">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> e하늘 예약 바로가기
+      </a>
     </div>
-  </section>
-  <div class="result-info" id="resultCount">데이터를 불러오는 중...</div>
-  <main class="card-grid" id="cardGrid"></main>
-  <div id="loadingBox"><i class="fa-solid fa-spinner fa-spin"></i> 로딩 중...</div>
-  <div id="emptyBox" class="hidden"><p>검색 결과가 없습니다.</p></div>
+
+    <div class="list-guide-box">
+      <div>
+        <strong>이 사이트의 핵심</strong>
+        <p>상세 페이지에서 사망 유형을 고르면 그 유형에 맞는 서류만 정리되고 카카오톡 공유용 문구까지 바로 만들 수 있습니다.</p>
+      </div>
+      <div>
+        <strong>안내</strong>
+        <p>운영 시간과 사용료는 바뀔 수 있으니 실제 예약 전에는 시설 공식 페이지 또는 e하늘에서 한 번 더 확인해 주세요.</p>
+      </div>
+    </div>
+
+    <div class="state-box" id="loadingBox">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      <p>목록을 불러오는 중입니다.</p>
+    </div>
+
+    <div class="card-grid hidden" id="cardGrid"></div>
+
+    <div class="state-box hidden" id="emptyBox">
+      <i class="fa-solid fa-face-frown"></i>
+      <p>조건에 맞는 화장장이 없습니다.</p>
+    </div>
+  </main>
+
+  <div class="toast-msg hidden" id="toastMsg"></div>
+
+  <footer class="site-footer">
+    <p>본 서비스는 정적 웹사이트로 동작하며, 관리자 수정 내용은 현재 브라우저에 저장됩니다.</p>
+    <p>최신 예약 정책과 실제 접수 가능 여부는 반드시 시설 공식 홈페이지 또는 e하늘에서 확인해 주세요.</p>
+  </footer>
+
   <script src="js/main.js"></script>
 </body>
 </html>
