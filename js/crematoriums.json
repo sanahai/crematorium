@@ -1,33 +1,3 @@
-/* ── 데이터 로드 (공공데이터 API 연결) ── */
-async function loadData() {
-  showState('loading');
-  try {
-    const API_KEY = 'a4bea687508507ebfe11d5215e2467d19b58c78e2a50667f9a4b19fb3e7de0c8'; // 발급받은 Decoding 인증키 입력
-    const API_URL = `https://apis.data.go.kr/1352000/ODMS_DATA_05_1/call73756f70?serviceKey=${API_KEY}&type=json&numOfRows=100`;
-
-    const res = await fetch(API_URL);
-    if (!res.ok) throw new Error('API 호출 실패');
-    
-    const json = await res.json();
-    
-    // 공공데이터 포털의 일반적인 데이터 구조 (필드명은 실제 API 가이드를 참조하여 매핑 필요)
-    // 데이터가 items 안에 배열로 들어오는 경우가 많습니다.
-    const rawItems = json.response?.body?.items || [];
-    
-    allData = rawItems.map((item, index) => ({
-      id: item.facltNm || index.toString(), // 화장장 명칭을 ID 대용으로 사용하거나 인덱스 사용
-      name: item.facltNm,                  // 시설명
-      region: item.ctprvnNm,               // 시도
-      city: item.signguNm,                 // 시군구
-      address: item.roadNmAddr,            // 도로명주소
-      phone: item.telno,                   // 전화번호
-      operating_hours: "07:00 ~ 17:00",    // API에 없다면 고정값
-      is_active: true
-    }));
-
-    renderCards(allData);
-  } catch(e) {
-    console.error("데이터 로드 실패:", e);
-    showState('empty');
-  }
+{
+  "data": []
 }
