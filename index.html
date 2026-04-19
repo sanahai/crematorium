@@ -8,20 +8,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* 메인 페이지 전용 추가 스타일 */
     .search-section { background: #f8f9fa; padding: 40px 20px; text-align: center; border-bottom: 1px solid #eee; }
     .search-container { max-width: 600px; margin: 0 auto; position: relative; }
     #searchInput { width: 100%; padding: 15px 50px 15px 20px; border: 2px solid #007bff; border-radius: 30px; font-size: 16px; outline: none; }
     #searchClearBtn { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #999; }
-    
     .filter-section { padding: 20px; text-align: center; }
     .region-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 15px; }
     .region-btn { padding: 8px 18px; border: 1px solid #ddd; border-radius: 20px; background: white; cursor: pointer; transition: 0.2s; }
     .region-btn.active { background: #007bff; color: white; border-color: #007bff; }
-    
     .result-info { max-width: 1100px; margin: 0 auto 10px; padding: 0 20px; text-align: left; font-size: 14px; color: #666; }
     .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; padding: 20px; }
-    
     .crematorium-card { background: white; border: 1px solid #eee; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.2s; }
     .crematorium-card:hover { transform: translateY(-5px); }
     .card-top { padding: 20px; border-bottom: 1px solid #f5f5f5; }
@@ -33,27 +29,21 @@
     .card-info-row i { width: 20px; color: #007bff; margin-right: 10px; }
     .card-footer { padding: 15px 20px; background: #fcfcfc; text-align: center; }
     .card-detail-btn { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; }
-    
     .hidden { display: none !important; }
     #loadingBox { text-align: center; padding: 50px; font-size: 18px; color: #999; }
     #emptyBox { text-align: center; padding: 50px; }
   </style>
 </head>
 <body>
-
   <header class="main-header">
-    <div class="container">
-      <h1><i class="fa-solid fa-monument"></i> 전국 화장장 안내</h1>
-    </div>
+    <div class="container"><h1><i class="fa-solid fa-monument"></i> 전국 화장장 안내</h1></div>
   </header>
-
   <section class="search-section">
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="화장장 이름 또는 주소를 입력하세요">
       <i class="fa-solid fa-circle-xmark" id="searchClearBtn"></i>
     </div>
   </section>
-
   <section class="filter-section">
     <div class="region-filter" id="regionFilter">
       <button class="region-btn active" data-region="전체">전체</button>
@@ -65,21 +55,10 @@
       <button class="region-btn" data-region="충청북도">충북</button>
     </div>
   </section>
-
   <div class="result-info" id="resultCount">데이터를 불러오는 중...</div>
-
-  <main class="card-grid" id="cardGrid">
-    </main>
-
-  <div id="loadingBox">
-    <i class="fa-solid fa-spinner fa-spin"></i> 정보를 불러오고 있습니다...
-  </div>
-
-  <div id="emptyBox" class="hidden">
-    <p><i class="fa-solid fa-circle-exclamation fa-3x"></i></p>
-    <p>검색 결과가 없습니다.</p>
-  </div>
-
+  <main class="card-grid" id="cardGrid"></main>
+  <div id="loadingBox"><i class="fa-solid fa-spinner fa-spin"></i> 로딩 중...</div>
+  <div id="emptyBox" class="hidden"><p>검색 결과가 없습니다.</p></div>
   <script src="js/main.js"></script>
 </body>
 </html>
